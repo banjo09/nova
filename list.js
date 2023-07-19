@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, FlatList, Image, Button } from 'react-native';
 import axios from 'axios';
 import { products } from './utils/product';
 import { BackgroundColorContext } from './contextFile';
-// import { BackgroundColorContext } from './BackgroundColorContext';
 
 export default function List() {
   const [data, setData] = useState([]);
@@ -60,10 +59,10 @@ export default function List() {
   };
 
   return (
-    <View style={{ flex: 1, }}>
-      <Button title="Change Background Color" color={backgroundColor} onPress={handleColorChange} />
+    <View style={{ ...styles.container, backgroundColor }}>
+      <Button title="Use context to Change Background" color={backgroundColor} onPress={handleColorChange} />
       <Text style={styles.topic}>Products list</Text>
-      <View>
+      <View style={styles.listContainer}>
         {data?.length > 0 ? (
           <FlatList
             data={data}
@@ -82,17 +81,25 @@ export default function List() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 50
+  },
   imageContainer: {
     alignItems: 'center',
     marginBottom: 40,
     paddingBottom: 10,
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
+    width: 140,
     overflow: 'hidden'
+  },
+  listContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
     width: 140,
-    // width: '100%',
     height: 80,
     marginBottom: 5,
   },
@@ -105,6 +112,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     paddingTop: 20,
-    marginBottom: 30
+    marginBottom: 30,
+    paddingLeft: 20
   },
 });
