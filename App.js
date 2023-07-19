@@ -1,20 +1,28 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import List from './list';
+import { BackgroundColorProvider } from './contextFile';
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <BackgroundColorProvider>
       <StatusBar style="auto" />
-    </View>
+      <View style={styles.container}>
+        <List />
+      </View>
+    </BackgroundColorProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
+    // backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 50
   },
 });
