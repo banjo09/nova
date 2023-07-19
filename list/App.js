@@ -2,17 +2,16 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import List from './list';
-import { BackgroundColorProvider } from './contextFile';
 
 export default function App() {
 
   return (
-    <BackgroundColorProvider>
+    <>
       <StatusBar style="auto" />
       <View style={styles.container}>
         <List />
       </View>
-    </BackgroundColorProvider>
+    </>
   );
 }
 
