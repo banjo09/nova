@@ -11,44 +11,47 @@ export default function List() {
 
   const options = {
     method: 'GET',
-    url: 'https://axesso-walmart-data-service.p.rapidapi.com/wlm/walmart-search-by-keyword',
+    // url: 'https://axesso-walmart-data-service.p.rapidapi.com/wlm/walmart-search-by-keyword',
+    url: 'https://opencollective.com/webpack/members.json?limit=10&offset=0',
     params: {
-      keyword: 'Lego Star Wars',
-      page: '1',
-      sortBy: 'best_match'
+      // keyword: 'Lego Star Wars',
+      // page: '1',
+      // sortBy: 'best_match',
+      limit: '10',
+      offset: '0'
     },
-    headers: {
-      'X-RapidAPI-Key': 'da4ef9e0d6mshf471b6c91d61ba7p1dd3d2jsnef5aaf68e563',
-      'X-RapidAPI-Host': 'axesso-walmart-data-service.p.rapidapi.com'
-    }
+    // headers: {
+    //   'X-RapidAPI-Key': 'da4ef9e0d6mshf471b6c91d61ba7p1dd3d2jsnef5aaf68e563',
+    //   'X-RapidAPI-Host': 'axesso-walmart-data-service.p.rapidapi.com'
+    // }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.request(options);
-        // setData(response.data);
-        // console.log('response.data', response.data)
+        setData(response.data);
+        console.log('response.data', response.data)
       } catch (error) {
         console.error(error);
         setError(error)
       }
     };
 
-    // fetchData();
+    fetchData();
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
-      setData(products);
+      // setData(products);
     }, 2000);
   }, []);
 
   const renderItem = ({ item }) => (
     <View style={styles.imageContainer}>
-      <Image source={{ uri: item.image_url }} style={styles.image} />
+      <Image source={{ uri: item.image }} style={styles.image} />
       <Text style={styles.description}>{item.name}</Text>
-      <Text style={styles.description}>{`Price: $${item.price}`}</Text>
+      <Text style={styles.description}>{`Price: $${item.totalAmountDonated}`}</Text>
     </View>
   );
 
@@ -60,15 +63,15 @@ export default function List() {
 
   return (
     <View style={{ ...styles.container, backgroundColor }}>
-      <Button title="Use context to Change Background" color={backgroundColor} onPress={handleColorChange} />
+      {/* <Button title="Use context to Change Background" color={backgroundColor} onPress={handleColorChange} /> */}
       <Text style={styles.topic}>Products list</Text>
       <View style={styles.listContainer}>
         {data?.length > 0 ? (
           <FlatList
             data={data}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
-            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => `${item.MemberId} ${item.createdAt}`}
+            showsVerticalScrollIndicator={false}
           />
         ) : error ? (
           <Text>{error}</Text>
@@ -83,7 +86,7 @@ export default function List() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50
+    paddingTop: 20
   },
   imageContainer: {
     alignItems: 'center',
